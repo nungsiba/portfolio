@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sorokhaibam Nungsiba Singh — Kangleipung</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg:        #0b0e13;
+  --surface:   #111620;
+  --card:      #161c2a;
+  --border:    rgba(0,212,255,0.12);
+  --accent:    #00d4ff;
+  --accent2:   #0af5c8;
+  --text:      #e8edf5;
+  --muted:     #6b7a99;
+  --glow:      0 0 40px rgba(0,212,255,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed; top:0; left:0;
+  pointer-events: none; z-index:9999;
+  transition: transform 0.1s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(0,212,255,0.5);
+  border-radius: 50%;
+  position: fixed; top:0; left:0;
+  pointer-events: none; z-index:9998;
+  transition: all 0.18s ease;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index:0; opacity:0.4;
+}
+
+/* ── NAVBAR ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:500;
+  padding: 0 2.5rem;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(11,14,19,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(0,212,255,0.4);
+}
+.nav-logo span { color: var(--text); }
+.nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content:'';
+  position:absolute; bottom:-4px; left:0; right:100%;
+  height:1px; background:var(--accent);
+  transition: right 0.25s ease;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { right:0; }
+
+/* Hamburger */
+.hamburger {
+  display:none; flex-direction:column; gap:5px;
+  background:none; border:none; cursor:pointer; padding:4px;
+}
+.hamburger span {
+  display:block; width:24px; height:2px;
+  background:var(--text); border-radius:2px;
+  transition: all 0.3s ease;
+}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* Mobile menu */
+.mobile-menu {
+  display:none;
+  position:fixed; top:68px; left:0; right:0;
+  background:rgba(11,14,19,0.97);
+  border-bottom:1px solid var(--border);
+  padding:1.5rem 2rem;
+  z-index:499;
+  flex-direction:column; gap:1.25rem;
+  transform: translateY(-20px); opacity:0;
+  transition: all 0.3s ease;
+}
+.mobile-menu.open { display:flex; transform:translateY(0); opacity:1; }
+.mobile-menu a {
+  color:var(--muted); text-decoration:none;
+  font-size:1.1rem; font-weight:500;
+  letter-spacing:0.06em; text-transform:uppercase;
+  transition:color 0.2s;
+}
+.mobile-menu a:hover { color:var(--accent); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 100px 2.5rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+/* Grid lines bg */
+.hero::after {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events:none;
+}
+.hero-glow {
+  position:absolute;
+  width:600px; height:600px;
+  border-radius:50%;
+  background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 65%);
+  top:50%; left:50%; transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+.hero-inner {
+  max-width: 1100px; width:100%;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 4rem;
+  align-items: center;
+  position:relative; z-index:1;
+}
+.hero-eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  display:flex; align-items:center; gap:.75rem;
+}
+.hero-eyebrow::before {
+  content:'';
+  display:inline-block;
+  width:32px; height:1px;
+  background: var(--accent);
+}
+h1.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem,7vw,6rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.25rem;
+}
+h1.title .line2 { color: var(--accent); display:block; }
+.hero-role {
+  font-size: 1rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+.hero-role span { color: var(--accent2); font-weight:500; }
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+.hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+
+.btn {
+  display: inline-flex; align-items:center; gap:.5rem;
+  padding: .75rem 1.75rem;
+  border-radius: 4px;
+  font-family:'Outfit',sans-serif;
+  font-size: .9rem; font-weight:600;
+  text-decoration:none;
+  letter-spacing:.04em;
+  transition: all 0.25s ease;
+  cursor:pointer; border:none;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #0b0e13;
+  box-shadow: 0 0 24px rgba(0,212,255,0.3);
+}
+.btn-primary:hover {
+  background: #22e0ff;
+  box-shadow: 0 0 40px rgba(0,212,255,0.5);
+  transform: translateY(-2px);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Hero photo */
+.hero-photo-wrap {
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.photo-ring {
+  position:relative;
+  width:280px; height:280px;
+}
+.photo-ring::before {
+  content:'';
+  position:absolute; inset:-8px;
+  border-radius:50%;
+  background: conic-gradient(var(--accent), var(--accent2), var(--accent), transparent 60%, var(--accent));
+  animation: spin 6s linear infinite;
+}
+.photo-ring::after {
+  content:'';
+  position:absolute; inset:-1px;
+  border-radius:50%;
+  background: var(--bg);
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.photo-circle {
+  position:absolute; inset:0; z-index:1;
+  border-radius:50%;
+  overflow:hidden;
+  border:3px solid var(--surface);
+}
+.photo-circle img {
+  width:100%; height:100%;
+  object-fit:cover; object-position:center top;
+  display:block;
+}
+.photo-circle .photo-fallback {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(135deg, #111620, #1a2235);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3.5rem; color:var(--accent);
+  letter-spacing:.05em;
+}
+.photo-badge {
+  position:absolute; bottom:-12px; right:-12px; z-index:2;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:.6rem .9rem;
+  font-size:.75rem;
+  display:flex; align-items:center; gap:.5rem;
+  color:var(--muted);
+  backdrop-filter:blur(8px);
+}
+.badge-dot { width:7px; height:7px; border-radius:50%; background:var(--accent2); }
+
+/* ── SECTION BASE ── */
+.section { padding: 6rem 2.5rem; position:relative; z-index:1; }
+.section-alt { background: var(--surface); }
+.section-inner { max-width:1100px; margin:0 auto; }
+.section-header { margin-bottom:3.5rem; }
+.section-tag {
+  font-size:.72rem; text-transform:uppercase; letter-spacing:.15em;
+  color:var(--accent); font-weight:600;
+  display:flex; align-items:center; gap:.6rem;
+  margin-bottom:.75rem;
+}
+.section-tag::before {
+  content:''; width:24px; height:1px; background:var(--accent);
+}
+.section-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2rem,4vw,3.2rem);
+  letter-spacing:.04em;
+  line-height:1;
+}
+.section-sub {
+  color:var(--muted); font-size:.95rem;
+  max-width:480px; line-height:1.75;
+  margin-top:.75rem; font-weight:300;
+}
+
+/* ── ABOUT ── */
+.about-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem; align-items:center;
+}
+.about-text p {
+  color:var(--muted); line-height:1.85;
+  margin-bottom:1.1rem; font-weight:300;
+}
+.about-text p strong { color:var(--text); font-weight:500; }
+.about-tags { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.75rem; }
+.tag {
+  background:rgba(0,212,255,0.06);
+  border:1px solid rgba(0,212,255,0.15);
+  color:var(--muted);
+  border-radius:3px;
+  padding:.3rem .75rem;
+  font-size:.78rem;
+  font-weight:500;
+  letter-spacing:.04em;
+  transition:all .2s;
+}
+.tag:hover { background:rgba(0,212,255,0.12); color:var(--accent); }
+.about-stats {
+  display:grid; grid-template-columns:1fr 1fr; gap:1rem;
+}
+.stat-box {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:1.5rem;
+  transition:border-color .2s, transform .2s;
+}
+.stat-box:hover { border-color:rgba(0,212,255,0.35); transform:translateY(-3px); }
+.stat-num {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.4rem; color:var(--accent);
+  line-height:1;
+}
+.stat-label { font-size:.78rem; color:var(--muted); margin-top:.35rem; font-weight:400; }
+.stat-box.wide { grid-column:1/-1; }
+
+/* ── SERVICES ── */
+.services-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.service-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:2.25rem;
+  position:relative; overflow:hidden;
+  transition:all .3s ease;
+  cursor:default;
+}
+.service-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--accent), var(--accent2));
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .3s ease;
+}
+.service-card::after {
+  content:'';
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  background:radial-gradient(circle at 50% 0%, rgba(0,212,255,0.05) 0%, transparent 60%);
+  opacity:0; transition:opacity .3s;
+}
+.service-card:hover {
+  border-color:rgba(0,212,255,0.25);
+  transform:translateY(-6px);
+  box-shadow:0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(0,212,255,0.05);
+}
+.service-card:hover::before { transform:scaleX(1); }
+.service-card:hover::after { opacity:1; }
+.svc-icon {
+  width:48px; height:48px;
+  border-radius:10px;
+  background:rgba(0,212,255,0.08);
+  border:1px solid rgba(0,212,255,0.15);
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:1.5rem;
+}
+.svc-icon svg { width:22px; height:22px; stroke:var(--accent); fill:none; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+.service-card h3 {
+  font-family:'Outfit',sans-serif;
+  font-size:1.05rem; font-weight:600;
+  margin-bottom:.75rem;
+}
+.service-card p { font-size:.875rem; color:var(--muted); line-height:1.75; font-weight:300; }
+.svc-stack { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1.25rem; }
+.svc-tag {
+  font-size:.7rem;
+  background:rgba(10,245,200,0.06);
+  border:1px solid rgba(10,245,200,0.15);
+  color:var(--accent2);
+  border-radius:3px;
+  padding:.2rem .55rem;
+  letter-spacing:.03em;
+}
+
+/* ── PROJECTS ── */
+.projects-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1.5rem;
+}
+.project-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  transition:all .3s ease;
+}
+.project-card:hover {
+  border-color:rgba(0,212,255,0.2);
+  transform:translateY(-5px);
+  box-shadow:0 20px 50px rgba(0,0,0,0.5);
+}
+.project-thumb {
+  height:190px;
+  background:var(--surface);
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+}
+.project-thumb-inner {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(0,212,255,0.04),rgba(10,245,200,0.04));
+}
+.thumb-label {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;
+  color:rgba(255,255,255,0.05);
+  letter-spacing:.06em;
+  position:relative; z-index:1;
+}
+.project-body { padding:1.5rem; }
+.project-body h3 { font-size:1rem; font-weight:600; margin-bottom:.5rem; }
+.project-body p { font-size:.85rem; color:var(--muted); line-height:1.7; margin-bottom:1.1rem; font-weight:300; }
+.project-footer { display:flex; align-items:center; justify-content:space-between; }
+.pstack { display:flex; gap:.4rem; }
+.ptag {
+  font-size:.7rem;
+  background:rgba(0,212,255,0.07);
+  border:1px solid rgba(0,212,255,0.14);
+  color:var(--accent);
+  border-radius:3px; padding:.2rem .5rem;
+}
+.plink {
+  font-size:.82rem; font-weight:600;
+  color:var(--accent2); text-decoration:none;
+  display:flex; align-items:center; gap:.3rem;
+  transition:opacity .2s;
+}
+.plink:hover { opacity:.7; }
+
+/* ── CONTACT ── */
+.contact-grid {
+  display:grid;
+  grid-template-columns:1fr 1.3fr;
+  gap:4rem; align-items:start;
+}
+.contact-info h3 {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem; letter-spacing:.04em;
+  margin-bottom:.75rem;
+}
+.contact-info p { font-size:.9rem; color:var(--muted); line-height:1.8; font-weight:300; margin-bottom:1.75rem; }
+.contact-items { display:flex; flex-direction:column; gap:.9rem; }
+.contact-item {
+  display:flex; align-items:center; gap:.85rem;
+  color:var(--muted); font-size:.875rem;
+}
+.contact-item svg { width:16px; height:16px; stroke:var(--accent); fill:none; stroke-width:2; flex-shrink:0; }
+.contact-item a { color:var(--muted); text-decoration:none; transition:color .2s; }
+.contact-item a:hover { color:var(--accent); }
+
+/* Form */
+.form-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:2.5rem;
+}
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; }
+.form-group { display:flex; flex-direction:column; gap:.45rem; margin-bottom:1rem; }
+.form-group:last-of-type { margin-bottom:0; }
+label { font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:500; }
+input, textarea, select {
+  background:var(--surface);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:6px;
+  padding:.8rem 1rem;
+  color:var(--text);
+  font-family:'Outfit',sans-serif;
+  font-size:.95rem;
+  outline:none;
+  transition:border-color .2s, box-shadow .2s;
+  width:100%;
+  font-weight:300;
+}
+input:focus, textarea:focus, select:focus {
+  border-color:rgba(0,212,255,0.45);
+  box-shadow:0 0 0 3px rgba(0,212,255,0.06);
+}
+textarea { height:130px; resize:none; }
+select option { background:var(--surface); }
+.form-submit {
+  width:100%; margin-top:1.5rem;
+  padding:1rem;
+  background:var(--accent);
+  color:#0b0e13;
+  font-family:'Outfit',sans-serif;
+  font-size:.95rem; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase;
+  border:none; border-radius:6px;
+  cursor:pointer;
+  transition:all .25s ease;
+  box-shadow:0 0 24px rgba(0,212,255,0.25);
+}
+.form-submit:hover {
+  background:#22e0ff;
+  box-shadow:0 0 40px rgba(0,212,255,0.45);
+  transform:translateY(-2px);
+}
+.form-submit.sent {
+  background:var(--accent2); color:#0b0e13;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding:2rem 2.5rem;
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:1rem;
+  position:relative; z-index:1;
+}
+.footer-logo {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.2rem; letter-spacing:.1em;
+  color:var(--accent);
+}
+.footer-copy { font-size:.8rem; color:var(--muted); }
+.footer-team { font-size:.8rem; color:var(--muted); }
+.footer-team strong { color:var(--accent2); }
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .65s ease, transform .65s ease;
+}
+.reveal.visible {
+  opacity:1; transform:none;
+}
+
+/* ── SCROLL TO TOP ── */
+.scroll-top {
+  position:fixed; bottom:2rem; right:2rem; z-index:200;
+  width:44px; height:44px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  opacity:0; pointer-events:none;
+  transition:all .3s;
+}
+.scroll-top.show { opacity:1; pointer-events:all; }
+.scroll-top:hover { border-color:var(--accent); }
+.scroll-top svg { width:16px; height:16px; stroke:var(--accent); fill:none; stroke-width:2; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px) {
+  .hero-inner { grid-template-columns:1fr; text-align:center; gap:3rem; }
+  .hero-eyebrow { justify-content:center; }
+  .hero-desc { margin-left:auto; margin-right:auto; }
+  .hero-btns { justify-content:center; }
+  .hero-photo-wrap { order:-1; }
+  .about-grid { grid-template-columns:1fr; gap:2.5rem; }
+  .services-grid { grid-template-columns:1fr; }
+  .projects-grid { grid-template-columns:1fr; }
+  .contact-grid { grid-template-columns:1fr; gap:2.5rem; }
+  footer { justify-content:center; text-align:center; }
+}
+@media(max-width:640px) {
+  nav { padding:0 1.25rem; }
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .section { padding:4.5rem 1.25rem; }
+  .form-row { grid-template-columns:1fr; }
+  h1.title { font-size:3rem; }
+  .photo-ring { width:220px; height:220px; }
+  footer { padding:1.5rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navbar -->
+<nav>
+  <div class="nav-logo">K<span>.</span>WEB</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#projects" class="mobile-link">Projects</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Available for Projects</div>
+      <h1 class="title">
+        Sorokhaibam<br>
+        <span class="line2">Nungsiba Singh</span>
+      </h1>
+      <p class="hero-role">Founder of <span>Kangleipung</span> &nbsp;·&nbsp; Web Developer</p>
+      <p class="hero-desc">Building digital solutions for the future of Manipur — modern web applications, e-commerce platforms, and UI/UX design that bridges local needs with global standards.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-outline">Start a Project</a>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrap">
+      <div class="photo-ring">
+        <div class="photo-circle">
+          <img
+            src="https://lh3.googleusercontent.com/pw/AP1GczMsxaHMFOHczaq0DzRZj5aItfXL7U5A8nhx57tXMisDuabpDEdJ9-WgP0cgPNjwz-_TixIDyj9Y-wbNS--p60XRgjzK_Dl2QrEut7_QnbpsPXbJB2U=w600-h800-no"
+            alt="Sorokhaibam Nungsiba Singh"
+            onerror="this.style.display='none';document.getElementById('photoFallback').style.display='flex';"
+          />
+          <div class="photo-fallback" id="photoFallback" style="display:none;">NS</div>
+        </div>
+      </div>
+      <div class="photo-badge">
+        <span class="badge-dot"></span>
+        React · Firebase · Tailwind
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section section-alt" id="about">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">Who I Am</div>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm <strong>Sorokhaibam Nungsiba Singh</strong>, a web developer and the founder of <strong>Kangleipung</strong> — a multi-disciplinary digital studio rooted in Manipur, Northeast India.</p>
+        <p>My work lives at the intersection of technology and local culture. I build solutions that are technically excellent and culturally meaningful — helping businesses across the Northeast digitize, scale, and thrive in a connected world.</p>
+        <p>From performant React applications to full-scale e-commerce ordering systems, I approach every project as an opportunity to raise the bar for what digital products in Manipur can be.</p>
+        <div class="about-tags">
+          <span class="tag">React</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">UI/UX Design</span>
+          <span class="tag">E-commerce</span>
+          <span class="tag">Figma</span>
+        </div>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Client satisfaction rate</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2+</div>
+          <div class="stat-label">Years of experience</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Projects delivered</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">MNP</div>
+          <div class="stat-label">Based in Manipur, India</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="section" id="services">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">What I Offer</div>
+      <h2 class="section-title">Services</h2>
+      <p class="section-sub">End-to-end digital solutions built for businesses, startups, and communities in Manipur and beyond.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Custom Web Development</h3>
+        <p>High-performance, scalable web applications built with modern tooling. From single-page apps to complex full-stack platforms tailored to your exact needs.</p>
+        <div class="svc-stack">
+          <span class="svc-tag">React</span>
+          <span class="svc-tag">Firebase</span>
+          <span class="svc-tag">Next.js</span>
+          <span class="svc-tag">Node.js</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M7 10h2l2 4 2-8 2 4h2"/></svg>
+        </div>
+        <h3>E-commerce Solutions</h3>
+        <p>Complete ordering systems and digital storefronts built for Manipuri businesses — fast, mobile-first, with inventory management and payment integration.</p>
+        <div class="svc-stack">
+          <span class="svc-tag">Ordering Systems</span>
+          <span class="svc-tag">Payments</span>
+          <span class="svc-tag">Inventory</span>
+        </div>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>UI/UX Design</h3>
+        <p>Pixel-perfect interfaces that are intuitive, brand-aligned, and beautiful — crafted in Figma and implemented with Tailwind CSS design systems for consistency at scale.</p>
+        <div class="svc-stack">
+          <span class="svc-tag">Figma</span>
+          <span class="svc-tag">Tailwind CSS</span>
+          <span class="svc-tag">Design Systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section class="section section-alt" id="projects">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">My Work</div>
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-sub">A selection of web applications and digital experiences I've built.</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="thumb-label">SOUL REAPER</div>
+        </div>
+        <div class="project-body">
+          <h3>Soul Reaper</h3>
+          <p>A dynamic web application with an immersive UI and real-time capabilities. Built for engagement, performance, and a memorable user experience.</p>
+          <div class="project-footer">
+            <div class="pstack">
+              <span class="ptag">React</span>
+              <span class="ptag">Firebase</span>
+              <span class="ptag">Tailwind</span>
+            </div>
+            <a href="#" class="plink">View ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="thumb-label">KANGLEIPUNG</div>
+        </div>
+        <div class="project-body">
+          <h3>Kangleipung Store</h3>
+          <p>A full-featured ordering and e-commerce system designed for local Manipuri businesses — mobile-first, fast, and scalable from day one.</p>
+          <div class="project-footer">
+            <div class="pstack">
+              <span class="ptag">React</span>
+              <span class="ptag">Firebase</span>
+              <span class="ptag">Stripe</span>
+            </div>
+            <a href="#" class="plink">View ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="thumb-label">DASHBOARD</div>
+        </div>
+        <div class="project-body">
+          <h3>Business Dashboard</h3>
+          <p>Custom analytics and management dashboard with real-time data visualization, built for SMEs across Northeast India.</p>
+          <div class="project-footer">
+            <div class="pstack">
+              <span class="ptag">React</span>
+              <span class="ptag">Recharts</span>
+              <span class="ptag">Firebase</span>
+            </div>
+            <a href="#" class="plink">View ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="project-thumb-inner"></div>
+          <div class="thumb-label">COMING SOON</div>
+        </div>
+        <div class="project-body">
+          <h3>Upcoming Project</h3>
+          <p>A new digital platform in active development, focused on community commerce and local digital infrastructure in Manipur.</p>
+          <div class="project-footer">
+            <div class="pstack">
+              <span class="ptag">React</span>
+              <span class="ptag">Next.js</span>
+            </div>
+            <a href="#contact" class="plink">Collaborate ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-tag">Get In Touch</div>
+      <h2 class="section-title">Start a Project</h2>
+      <p class="section-sub">Have an idea? Let's build something great together.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Let's Work Together</h3>
+        <p>Whether you need a full web application, an e-commerce platform, or a UI redesign — the Kangleipung Web Team is ready to bring your vision to life.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <a href="mailto:hello@kangleipung.com">hello@kangleipung.com</a>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Manipur, Northeast India</span>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+            <a href="#">@kangleipung</a>
+          </div>
+        </div>
+      </div>
+      <div class="form-card reveal">
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">Your Name</label>
+              <input type="text" id="fname" name="name" placeholder="John Doe" required/>
+            </div>
+            <div class="form-group">
+              <label for="femail">Email Address</label>
+              <input type="email" id="femail" name="email" placeholder="you@example.com" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fmsg">Tell Me About Your Project</label>
+            <textarea id="fmsg" name="message" placeholder="Describe what you need..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Kangleipung.</div>
+  <div class="footer-copy">© 2026 Kangleipung Web Team</div>
+  <div class="footer-team">Built by <strong>Nungsiba Singh</strong></div>
+</footer>
+
+<!-- Scroll to top -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+// ── GOOGLE APPS SCRIPT ENDPOINT ──
+// Paste your deployed Google Web App URL below after setting up your Apps Script
+const scriptURL = 'YOUR_DEPLOYED_WEB_APP_URL_HERE';
+
+// ── CUSTOM CURSOR ──
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx-5}px,${my-5}px)`;
+});
+function animRing(){
+  rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
+  cursorRing.style.transform = `translate(${rx-18}px,${ry-18}px)`;
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a,button,.service-card,.project-card,.stat-box').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cursor.style.transform+=` scale(2.5)`; cursorRing.style.opacity='0.5'; });
+  el.addEventListener('mouseleave',()=>{ cursorRing.style.opacity='1'; });
+});
+
+// ── HAMBURGER ──
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>{
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mobile-link').forEach(l=>{
+  l.addEventListener('click',()=>{
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+// ── SCROLL REVEAL ──
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'), i*80);
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+reveals.forEach(el=>observer.observe(el));
+
+// ── SCROLL TO TOP ──
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll',()=>{
+  scrollTopBtn.classList.toggle('show', window.scrollY>400);
+});
+scrollTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// ── CONTACT FORM ──
+async function handleSubmit(e) {
+  e.preventDefault();
+
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('submitBtn');
+
+  // PASTE YOUR GOOGLE WEB APP URL HERE
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxNUkW5rFXeN5_nBbbB0KhP4PnLKRqxFUe-s7Wftzc9l9HxlPl6pckY-GSAgVB7_GW3/exec'; 
+
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    // This sends the data to your Google Sheet
+    await fetch(scriptURL, {
+      method: 'POST',
+      body: new FormData(form)
+    });
+
+    // Success UI
+    btn.textContent = 'Message Sent ✓';
+    btn.classList.add('sent');
+    form.reset();
+  } catch (error) {
+    console.error('Error!', error.message);
+    btn.textContent = 'Error! Try again';
+    btn.disabled = false;
+  }
+
+  // Reset button look after a few seconds
+  setTimeout(() => {
+    btn.textContent = 'Send Message →';
+    btn.classList.remove('sent');
+    btn.disabled = false;
+  }, 3500);
+}
+
+// ── ACTIVE NAV ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY >= s.offsetTop-100) current=s.id;
+  });
+  navLinks.forEach(a=>{
+    a.style.color = a.getAttribute('href')==='#'+current ? 'var(--accent)' : '';
+  });
+},{ passive:true });
+</script>
+</body>
+</html>
